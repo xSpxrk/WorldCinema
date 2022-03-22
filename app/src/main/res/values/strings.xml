@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CinemaWorld</string>
+    <string name="title">WorldCinema</string>
+    <string name="password">Пароль</string>
+    <string name="email">E-mail</string>
+    <string name="enter">Войти</string>
+    <string name="registration">Регистрация</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="repeatPassword">Повторите пароль</string>
+    <string name="signUp">Зарегистрироваться</string>
+    <string name="haveAccount">У меня уже есть аккаунт</string>
+</resources>

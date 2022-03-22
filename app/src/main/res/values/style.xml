@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="OrangeButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="height">44dp</item>
+        <item name="backgroundTint">@color/orange</item>
+
+    </style>
+    <style name="TransparentButton" parent="Widget.AppCompat.Button">
+        <item name="backgroundTint">@drawable/shape_edit_text</item>
+        <item name="height">44dp</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="strokeColor">@color/gray</item>
+        <item name="strokeWidth">30dp</item>
+    </style>
+
+</resources>
