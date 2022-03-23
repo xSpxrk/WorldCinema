@@ -86,6 +86,7 @@
             android:text="@string/enter"
             android:backgroundTint="@color/orange"
             android:textAllCaps="false"
+            android:onClick="SignIn"
             />
 
         <com.google.android.material.button.MaterialButton

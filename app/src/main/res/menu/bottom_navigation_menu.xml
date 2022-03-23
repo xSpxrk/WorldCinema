@@ -1,10 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/page_1"
-        android:enabled="true"
-        android:title="тест"/>
+        android:id="@+id/homePage"
+        android:title="@string/home_page"
+        android:icon="@drawable/home"/>
     <item
-        android:id="@+id/page_2"
-        android:enabled="true"
-        android:title="тест1"/>
+        android:id="@+id/recommendationsPage"
+        android:title="@string/recommendations"
+        android:icon="@drawable/recommendations"/>
+    <item
+        android:id="@+id/collectionsPage"
+        android:title="@string/collections"
+        android:icon="@drawable/collection"/>
+    <item
+        android:id="@+id/profilePage"
+        android:title="@string/profile"
+        android:icon="@drawable/profile"
+        />
 </menu>

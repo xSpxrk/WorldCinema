@@ -17,4 +17,7 @@ public class Authorization extends AppCompatActivity {
     public void SignUp(View view){
         startActivity(new Intent(this, Registration.class));
     }
+    public void SignIn(View view) {
+        startActivity(new Intent(this, MainWindow.class));
+    }
 }
