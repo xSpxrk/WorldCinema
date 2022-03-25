@@ -138,7 +138,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/signUp"
+            android:id="@+id/btn_exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -147,7 +147,6 @@
             android:height="50dp"
             android:text="Выход"
             android:textAllCaps="false"
-            android:onClick="SignUp"
             android:layout_margin="16dp"
             />
     </TableLayout>

@@ -2,8 +2,12 @@ package com.example.cinemaworld.pages;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.content.SharedPreferences;
 
 import androidx.fragment.app.Fragment;
 
@@ -15,10 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cinemaworld.Authorization;
 import com.example.cinemaworld.R;
 import com.example.cinemaworld.network.ApiHandler;
 import com.example.cinemaworld.network.profile.models.GetProfileResponse;
 import com.example.cinemaworld.network.profile.service.GetProfileService;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -33,6 +39,10 @@ import retrofit2.Response;
  */
 public class ProfilePage extends Fragment {
     GetProfileService service = ApiHandler.getInstance().getProfileService();
+
+    String token;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences preferences;
 
     TextView txtName, txtEmail;
     ImageView imgAvatar;
@@ -84,18 +94,25 @@ public class ProfilePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        editor = getContext().getSharedPreferences("token",  Context.MODE_PRIVATE).edit();
+        preferences = getContext().getSharedPreferences("token", Context.MODE_PRIVATE);
+        token = preferences.getString("token", "");
 
         View view = inflater.inflate(R.layout.fragment_profile_page, container, false);
         txtName = view.findViewById(R.id.txt_name);
         txtEmail = view.findViewById(R.id.txt_email);
+        imgAvatar = view.findViewById(R.id.img_avatar);
+        view.findViewById(R.id.btn_exit).setOnClickListener(v -> {
+            doExit();
+        });
         AsyncTask.execute(() -> {
-            service.getData("Bearer 834304").enqueue(new Callback<List<GetProfileResponse>>() {
+            service.getData("Bearer " + token).enqueue(new Callback<List<GetProfileResponse>>() {
                 @Override
                 public void onResponse(Call<List<GetProfileResponse>> call, Response<List<GetProfileResponse>> response) {
-                    Log.d(TAG, "onResponse: " + response.body().get(0).getFirstName());
                     txtEmail.setText(response.body().get(0).getEmail());
                     String name = response.body().get(0).getFirstName() + " " + response.body().get(0).getLastName();
                     txtName.setText(name);
+                    Picasso.with(getContext()).load("http://cinema.areas.su/up/images/"+ response.body().get(0).getAvatar()).into(imgAvatar);
                 }
 
                 @Override
@@ -107,4 +124,11 @@ public class ProfilePage extends Fragment {
 
         return view;
     }
+
+    private void doExit() {
+        editor.putString("token", "").apply();
+        getContext().startActivity(new Intent(getActivity(), Authorization.class));
+        getActivity().finish();
+    }
+
 }
