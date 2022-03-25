@@ -1,14 +1,30 @@
 package com.example.cinemaworld.pages;
 
+import static android.content.ContentValues.TAG;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cinemaworld.R;
+import com.example.cinemaworld.network.ApiHandler;
+import com.example.cinemaworld.network.profile.models.GetProfileResponse;
+import com.example.cinemaworld.network.profile.service.GetProfileService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +32,10 @@ import com.example.cinemaworld.R;
  * create an instance of this fragment.
  */
 public class ProfilePage extends Fragment {
+    GetProfileService service = ApiHandler.getInstance().getProfileService();
+
+    TextView txtName, txtEmail;
+    ImageView imgAvatar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,12 +75,36 @@ public class ProfilePage extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_page, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_profile_page, container, false);
+        txtName = view.findViewById(R.id.txt_name);
+        txtEmail = view.findViewById(R.id.txt_email);
+        AsyncTask.execute(() -> {
+            service.getData("Bearer 834304").enqueue(new Callback<List<GetProfileResponse>>() {
+                @Override
+                public void onResponse(Call<List<GetProfileResponse>> call, Response<List<GetProfileResponse>> response) {
+                    Log.d(TAG, "onResponse: " + response.body().get(0).getFirstName());
+                    txtEmail.setText(response.body().get(0).getEmail());
+                    String name = response.body().get(0).getFirstName() + " " + response.body().get(0).getLastName();
+                    txtName.setText(name);
+                }
+
+                @Override
+                public void onFailure(Call<List<GetProfileResponse>> call, Throwable t) {
+                    Log.d(TAG, "Не крут ");
+                }
+            });
+        });
+
+        return view;
     }
 }

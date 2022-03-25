@@ -5,6 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
 import com.example.cinemaworld.network.auth.service.LoginService;
+import com.example.cinemaworld.network.profile.service.GetProfileService;
 import com.example.cinemaworld.network.registration.service.RegistrationService;
 
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,5 +46,9 @@ public class ApiHandler {
 
     public RegistrationService getRegistration() {
         return retrofit.create(RegistrationService.class);
+    }
+
+    public GetProfileService getProfileService() {
+        return retrofit.create(GetProfileService.class);
     }
 }
