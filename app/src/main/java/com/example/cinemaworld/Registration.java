@@ -2,6 +2,7 @@ package com.example.cinemaworld;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,16 +55,22 @@ public class Registration extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Крут", Toast.LENGTH_LONG).show();
+                        if (editTextPassword.getText().toString() == editTextRepeatedPassword.getText().toString()) {
+                            Toast.makeText(getApplicationContext(), "Регистрация успешна!", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(), MainWindow.class));
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Пароли не совпадают", Toast.LENGTH_LONG).show();
+                        }
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Не крут", Toast.LENGTH_LONG).show();
                     }
 
                 }
-
                 @Override
                 public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                    Log.d(TAG, "onFailure: " + call.toString());
+                    Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
                 }
             });
         });

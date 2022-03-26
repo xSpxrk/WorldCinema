@@ -65,7 +65,8 @@
             android:paddingStart="17dp"
             android:textColor="@color/gray"
             android:textColorHint="@color/gray"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:password="true"/>
     </LinearLayout>
 
     <LinearLayout
