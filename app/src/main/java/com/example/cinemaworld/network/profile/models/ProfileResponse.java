@@ -2,7 +2,7 @@ package com.example.cinemaworld.network.profile.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GetProfileResponse {
+public class ProfileResponse {
     @SerializedName("userId")
     private String userId;
     @SerializedName("firstName")

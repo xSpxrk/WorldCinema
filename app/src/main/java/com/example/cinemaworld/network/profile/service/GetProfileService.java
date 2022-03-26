@@ -1,7 +1,7 @@
 package com.example.cinemaworld.network.profile.service;
 
 
-import com.example.cinemaworld.network.profile.models.GetProfileResponse;
+import com.example.cinemaworld.network.profile.models.ProfileResponse;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ import retrofit2.http.Header;
 
 public interface GetProfileService {
     @GET("/user")
-    Call<List<GetProfileResponse>> getData(@Header("Authorization") String token);
+    Call<List<ProfileResponse>> getData(@Header("Authorization") String token);
 }

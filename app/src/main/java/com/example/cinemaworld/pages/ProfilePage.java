@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.content.SharedPreferences;
 
 import androidx.fragment.app.Fragment;
 
@@ -17,12 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cinemaworld.Authorization;
 import com.example.cinemaworld.R;
 import com.example.cinemaworld.network.ApiHandler;
-import com.example.cinemaworld.network.profile.models.GetProfileResponse;
+import com.example.cinemaworld.network.profile.models.ProfileResponse;
 import com.example.cinemaworld.network.profile.service.GetProfileService;
 import com.squareup.picasso.Picasso;
 
@@ -106,9 +104,9 @@ public class ProfilePage extends Fragment {
             doExit();
         });
         AsyncTask.execute(() -> {
-            service.getData("Bearer " + token).enqueue(new Callback<List<GetProfileResponse>>() {
+            service.getData("Bearer " + token).enqueue(new Callback<List<ProfileResponse>>() {
                 @Override
-                public void onResponse(Call<List<GetProfileResponse>> call, Response<List<GetProfileResponse>> response) {
+                public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
                     txtEmail.setText(response.body().get(0).getEmail());
                     String name = response.body().get(0).getFirstName() + " " + response.body().get(0).getLastName();
                     txtName.setText(name);
@@ -116,7 +114,7 @@ public class ProfilePage extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<List<GetProfileResponse>> call, Throwable t) {
+                public void onFailure(Call<List<ProfileResponse>> call, Throwable t) {
                     Log.d(TAG, "Не крут ");
                 }
             });

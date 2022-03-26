@@ -1,14 +1,11 @@
 package com.example.cinemaworld;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,10 +14,6 @@ import com.example.cinemaworld.network.ApiHandler;
 import com.example.cinemaworld.network.auth.models.LoginBody;
 import com.example.cinemaworld.network.auth.models.LoginResponse;
 import com.example.cinemaworld.network.auth.service.LoginService;
-import com.example.cinemaworld.network.profile.models.GetProfileResponse;
-import com.example.cinemaworld.network.profile.service.GetProfileService;
-
-import java.nio.channels.AsynchronousServerSocketChannel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
