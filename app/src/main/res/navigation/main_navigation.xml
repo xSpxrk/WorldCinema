@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_recommendations_page" />
     <fragment
         android:id="@+id/collectionsPage"
-        android:name="com.example.cinemaworld.pages.CollectionsPage"
+        android:name="com.example.cinemaworld.pages.collections.CollectionsPage"
         android:label="fragment_collections_page"
         tools:layout="@layout/fragment_collections_page" />
     <fragment

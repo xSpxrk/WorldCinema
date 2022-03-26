@@ -1,4 +1,4 @@
-package com.example.cinemaworld.pages;
+package com.example.cinemaworld.pages.collections;
 
 import android.os.Bundle;
 

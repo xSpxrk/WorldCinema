@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/collection.xml" value="0.1165" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/home.xml" value="0.1165" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/plus.xml" value="0.2385" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/shape_edit_text.xml" value="0.2985" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/shape_image.xml" value="0.28" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/shape_orange_button.xml" value="0.186" />
@@ -15,8 +16,9 @@
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/activity_main_window.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/activity_registration.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/activity_splash_screen.xml" value="0.1638888888888889" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/collection_item.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/cover_item.xml" value="0.22982885085574573" />
-        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/fragment_collections_page.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/fragment_collections_page.xml" value="0.31442463533225284" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/fragment_home_page.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/fragment_profile_page.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/fragment_recommendations_page.xml" value="0.36666666666666664" />
