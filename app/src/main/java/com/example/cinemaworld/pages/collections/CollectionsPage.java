@@ -1,14 +1,22 @@
 package com.example.cinemaworld.pages.collections;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cinemaworld.R;
+import com.example.cinemaworld.adapters.CollectionAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +24,11 @@ import com.example.cinemaworld.R;
  * create an instance of this fragment.
  */
 public class CollectionsPage extends Fragment {
+    ArrayList<Collection> collections;
+    private RecyclerView recyclerView;
+    private CollectionAdapter collectionAdapter;
+    private LinearLayoutManager layoutManager;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +74,25 @@ public class CollectionsPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_collections_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_collections_page, container, false);
+        collections = new ArrayList<>();
+        view.findViewById(R.id.im_plus).setOnClickListener(view1 -> {
+            startActivity(new Intent(getActivity(), BuildingCollection.class));
+        });
+        collections.add(new Collection(R.drawable.invalid, "Избранное"));
+        collections.add(new Collection(R.drawable.invalid, "Избранное"));
+        collections.add(new Collection(R.drawable.invalid, "Избранное"));
+        collections.add(new Collection(R.drawable.invalid, "Избранное"));
+
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView = view.findViewById(R.id.rv_collections);
+
+        SnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
+        collectionAdapter = new CollectionAdapter(collections, getContext());
+        recyclerView.setAdapter(collectionAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        collectionAdapter.notifyDataSetChanged();
+        return view;
     }
 }

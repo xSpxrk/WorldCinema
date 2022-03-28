@@ -28,7 +28,8 @@
         app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toEndOf="@+id/iv_brand"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintVertical_bias="0.481"
+        android:textColor="@color/white"/>
 
     <ImageView
         android:id="@+id/iv_brand_2"

@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cinemaworld" >
+    package="com.example.cinemaworld">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.CinemaWorld" >
+        android:theme="@style/Theme.CinemaWorld"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".pages.collections.ChoosingIcon"
+            android:exported="false" />
+        <activity
+            android:name=".pages.collections.BuildingCollection"
+            android:exported="false" />
         <activity
             android:name=".MainWindow"
             android:exported="false" />
@@ -21,7 +29,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
