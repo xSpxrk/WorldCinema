@@ -3,6 +3,7 @@ package com.example.cinemaworld;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.util.Log;
 
 import com.example.cinemaworld.adapters.ChatAdapter;
 import com.example.cinemaworld.network.ApiHandler;
+import com.example.cinemaworld.network.chats.models.ChatResponse;
 import com.example.cinemaworld.network.chats.models.MessageResponse;
 import com.example.cinemaworld.network.chats.service.ChatService;
 
@@ -27,10 +29,10 @@ import retrofit2.Response;
 public class ChatWindow extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ChatService serviceMessages = ApiHandler.getInstance().getMessages();
-    ChatService serviceChatId
+    ChatService service = ApiHandler.getInstance().getMessages();
+    private LinearLayoutManager linearLayoutManager;
 
-    String movieId, token;
+    String token, movieId, chatId;
 
     private ArrayList<MessageResponse> messages;
     private ChatAdapter adapter;
@@ -43,7 +45,7 @@ public class ChatWindow extends AppCompatActivity {
         setContentView(R.layout.activity_chat_window);
         Intent intent = getIntent();
         recyclerView = findViewById(R.id.rv_messages);
-
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         preferences = getSharedPreferences("token", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
         movieId = intent.getStringExtra("movieId");
@@ -52,8 +54,7 @@ public class ChatWindow extends AppCompatActivity {
         findViewById(R.id.arrow_back).setOnClickListener(view -> {
             goBack();
         });
-        getMessages();
-
+        getChatId();
 
     }
 
@@ -61,23 +62,42 @@ public class ChatWindow extends AppCompatActivity {
         finish();
     }
 
-    private String getChatId() {
+    private void getChatId() {
         AsyncTask.execute(() -> {
+            service.getChatId(movieId).enqueue(new Callback<List<ChatResponse>>() {
+                @Override
+                public void onResponse(Call<List<ChatResponse>> call, Response<List<ChatResponse>> response) {
+                    chatId = response.body().get(0).getChatId();
+                    Log.d(TAG, "chatId: " + chatId);
+                    getMessages();
+                }
+                @Override
+                public void onFailure(Call<List<ChatResponse>> call, Throwable t) {
 
+                }
+            });
         });
     }
 
 
-    private void getMessages(String messageId) {
+    private void getMessages() {
         AsyncTask.execute(() -> {
-            serviceMessages.getMessages(token, messageId).enqueue(new Callback<List<MessageResponse>>() {
+            service.getMessages(token, chatId).enqueue(new Callback<List<MessageResponse>>() {
                 @Override
                 public void onResponse(Call<List<MessageResponse>> call, Response<List<MessageResponse>> response) {
-                    Log.d(TAG, "" + response.body());
+                    if (response.isSuccessful()) {
+                        messages = new ArrayList<>(response.body());
+                        Log.d(TAG, "onResponse: " + messages.get(3));
+                        adapter = new ChatAdapter(messages, getApplicationContext());
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        adapter.notifyDataSetChanged();
+                    }
+
                 }
                 @Override
                 public void onFailure(Call<List<MessageResponse>> call, Throwable t) {
-
+                    Log.d(TAG, "GG" + t.getLocalizedMessage());
                 }
             });
         });

@@ -23,9 +23,9 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     private Context context;
 
     public CollectionAdapter(ArrayList<Collection> collections, Context context) {
-    this.collections = collections;
-    this.inflater = LayoutInflater.from(context);
-    this.context = context;
+        this.collections = collections;
+        this.inflater = LayoutInflater.from(context);
+        this.context = context;
 
     }
 
