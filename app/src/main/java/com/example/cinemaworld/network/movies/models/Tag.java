@@ -1,4 +1,4 @@
-package com.example.cinemaworld.network.profile.models;
+package com.example.cinemaworld.network.movies.models;
 
 import com.google.gson.annotations.SerializedName;
 

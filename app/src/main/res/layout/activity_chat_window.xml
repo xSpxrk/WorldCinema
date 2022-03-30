@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatWindow"
+    android:background="@color/dark">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/arrow_back"
+                android:layout_width="12dp"
+                android:layout_height="21dp"
+                android:src="@drawable/arrow_back"
+                android:background="@android:color/transparent"
+                />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Игра престолов"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_messages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/textMessage"
+                android:textColorHint="@color/gray"
+                android:textColor="@color/gray"
+                android:hint="Напишите сообщение..."
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/shape_edit_text"
+                android:layout_height="50dp">
+            </EditText>
+            <ImageButton
+                android:id="@+id/btn_send"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/arrow_up"/>
+
+        </LinearLayout>
+    </TableLayout>
+</LinearLayout>

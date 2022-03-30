@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="151dp"
+            android:background="@drawable/shape_frame_right">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp">
+                <TextView
+                    android:id="@+id/txt_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Скорее бы!"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@color/white"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Иван Иванов"
+                        android:textColor="@color/pink"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" • "
+                        android:textColor="@color/pink"/>
+                    <TextView
+                        android:id="@+id/txt_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18:30"
+                        android:textColor="@color/pink"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </FrameLayout>
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shape_profile_image"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+    
+</LinearLayout>

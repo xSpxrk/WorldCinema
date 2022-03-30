@@ -1,6 +1,5 @@
 package com.example.cinemaworld.network.movies.models;
 
-import com.example.cinemaworld.network.profile.models.Tag;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

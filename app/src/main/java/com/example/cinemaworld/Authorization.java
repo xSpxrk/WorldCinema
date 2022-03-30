@@ -43,7 +43,6 @@ public class Authorization extends AppCompatActivity {
         if (!token.equals(""))
             startHomePage();
 
-
     }
 
     public void SignUp(View view) {

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CinemaWorld"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ChatWindow"
+            android:exported="false" />
+        <activity
             android:name=".pages.collections.ChoosingIcon"
             android:exported="false" />
         <activity
