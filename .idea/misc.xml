@@ -8,6 +8,7 @@
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/ellipse_2.xml" value="0.12" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/favorite.xml" value="0.2385" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/home.xml" value="0.1165" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/icon.xml" value="0.2075" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/plus.xml" value="0.2385" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/profile.xml" value="0.2385" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/drawable/shape_edit_text.xml" value="0.2985" />
@@ -34,6 +35,10 @@
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/message_from_user.xml" value="0.2846153846153846" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/layout/message_from_users.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/watch/src/main/res/drawable/icon.xml" value="0.2075" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/watch/src/main/res/layout/activity_auth.xml" value="1.0512820512820513" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/watch/src/main/res/layout/activity_main.xml" value="0.7073732718894009" />
+        <entry key="..\:/Users/Administrator/Desktop/AndroidPractice/watch/src/main/res/layout/activity_splash_screen.xml" value="1.5460526315789473" />
       </map>
     </option>
   </component>

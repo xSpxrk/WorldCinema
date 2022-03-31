@@ -1,15 +1,11 @@
-package com.example.cinemaworld.network;
+package com.example.watch.network;
+
+
+import com.example.watch.network.auth.service.LoginService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-
-import com.example.cinemaworld.network.auth.service.LoginService;
-import com.example.cinemaworld.network.chats.service.ChatService;
-import com.example.cinemaworld.network.movies.service.MovieService;
-import com.example.cinemaworld.network.profile.service.GetProfileService;
-import com.example.cinemaworld.network.registration.service.RegistrationService;
-
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiHandler {
@@ -36,29 +32,12 @@ public class ApiHandler {
     }
 
     public static ApiHandler getInstance() {
-        if (mInstance == null) {
+        if (mInstance == null)
             mInstance = new ApiHandler();
-        }
         return mInstance;
     }
 
     public LoginService getLogin() {
         return retrofit.create(LoginService.class);
-    }
-
-    public RegistrationService getRegistration() {
-        return retrofit.create(RegistrationService.class);
-    }
-
-    public GetProfileService getProfileService() {
-        return retrofit.create(GetProfileService.class);
-    }
-
-    public MovieService getMovies(){
-        return retrofit.create(MovieService.class);
-    }
-
-    public ChatService getMessages() {
-        return retrofit.create(ChatService.class);
     }
 }
