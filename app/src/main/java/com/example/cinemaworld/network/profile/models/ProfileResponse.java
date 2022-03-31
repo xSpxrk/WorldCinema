@@ -63,4 +63,9 @@ public class ProfileResponse {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+
+    public String getProfileName() {
+        return firstName + " " + lastName;
+    }
 }

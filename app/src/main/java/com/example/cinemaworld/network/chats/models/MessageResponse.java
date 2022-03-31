@@ -18,6 +18,16 @@ public class MessageResponse {
     @SerializedName("text")
     private String text;
 
+    private int viewType = 0;
+
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
     public String getChatId() {
         return chatId;
     }

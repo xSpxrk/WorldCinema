@@ -104,7 +104,7 @@ public class ProfilePage extends Fragment {
             doExit();
         });
         AsyncTask.execute(() -> {
-            service.getData("Bearer " + token).enqueue(new Callback<List<ProfileResponse>>() {
+            service.getData(token).enqueue(new Callback<List<ProfileResponse>>() {
                 @Override
                 public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
                     txtEmail.setText(response.body().get(0).getEmail());

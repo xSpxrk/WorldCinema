@@ -12,10 +12,14 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cinemaworld.adapters.ChatAdapter;
 import com.example.cinemaworld.network.ApiHandler;
 import com.example.cinemaworld.network.chats.models.ChatResponse;
+import com.example.cinemaworld.network.chats.models.MessageBody;
 import com.example.cinemaworld.network.chats.models.MessageResponse;
 import com.example.cinemaworld.network.chats.service.ChatService;
 
@@ -38,6 +42,9 @@ public class ChatWindow extends AppCompatActivity {
     private ChatAdapter adapter;
 
     private SharedPreferences preferences;
+    private String profileName;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +57,22 @@ public class ChatWindow extends AppCompatActivity {
         token = preferences.getString("token", "");
         movieId = intent.getStringExtra("movieId");
         Log.d(TAG, "onCreate: " + token);
+        profileName = preferences.getString("ProfileName", "");
+
 
         findViewById(R.id.arrow_back).setOnClickListener(view -> {
             goBack();
         });
         getChatId();
+        EditText editText = findViewById(R.id.textMessage);
+
+        findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(token, chatId, new MessageBody(editText.getText().toString()));
+                getMessages();
+            }
+        });
 
     }
 
@@ -80,6 +98,8 @@ public class ChatWindow extends AppCompatActivity {
     }
 
 
+
+
     private void getMessages() {
         AsyncTask.execute(() -> {
             service.getMessages(token, chatId).enqueue(new Callback<List<MessageResponse>>() {
@@ -87,10 +107,16 @@ public class ChatWindow extends AppCompatActivity {
                 public void onResponse(Call<List<MessageResponse>> call, Response<List<MessageResponse>> response) {
                     if (response.isSuccessful()) {
                         messages = new ArrayList<>(response.body());
-                        Log.d(TAG, "onResponse: " + messages.get(3));
-                        adapter = new ChatAdapter(messages, getApplicationContext());
+                        for (int i = 0; i < response.body().size(); i++) {
+                            String name = messages.get(i).getFirstName() + " " + messages.get(i).getLastName();
+                            if (name.equals(profileName))
+                                messages.get(i).setViewType(1);
+
+                        }
+                        adapter = new ChatAdapter(messages);
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.scrollToPosition(messages.size() - 1);
                         adapter.notifyDataSetChanged();
                     }
 
@@ -98,6 +124,26 @@ public class ChatWindow extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<List<MessageResponse>> call, Throwable t) {
                     Log.d(TAG, "GG" + t.getLocalizedMessage());
+                }
+            });
+        });
+    }
+
+
+    private void sendMessage(String token, String chatId, MessageBody text) {
+        AsyncTask.execute(() -> {
+            service.sendMessage(token, chatId, text).enqueue(new Callback<ChatResponse>() {
+                @Override
+                public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(ChatWindow.this, "Сообщение успешно отправлено", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ChatResponse> call, Throwable t) {
+
                 }
             });
         });
