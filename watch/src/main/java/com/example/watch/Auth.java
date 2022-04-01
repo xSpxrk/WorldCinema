@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,12 +29,18 @@ public class Auth extends AppCompatActivity {
 
     EditText ed_email, ed_password;
     LoginService service = ApiHandler.getInstance().getLogin();
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
     ed_email = findViewById(R.id.edit_email);
     ed_password = findViewById(R.id.edit_pass);
+
+    sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+    editor = getSharedPreferences("token", MODE_PRIVATE).edit();
 
     findViewById(R.id.btn_sign_in).setOnClickListener(new View.OnClickListener() {
         @Override
@@ -50,7 +57,7 @@ public class Auth extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
-                        Log.d(TAG, "onResponse: " + response.body().getToken());
+                        editor.putString("token", response.body().getToken()).apply();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();

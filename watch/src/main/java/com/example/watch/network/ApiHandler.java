@@ -2,6 +2,8 @@ package com.example.watch.network;
 
 
 import com.example.watch.network.auth.service.LoginService;
+import com.example.watch.network.discussions.service.ChatService;
+import com.example.watch.network.movies.service.MoviesService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -39,5 +41,12 @@ public class ApiHandler {
 
     public LoginService getLogin() {
         return retrofit.create(LoginService.class);
+    }
+
+    public ChatService getChats() {
+        return retrofit.create(ChatService.class);
+    }
+    public MoviesService getMovies() {
+        return retrofit.create(MoviesService.class);
     }
 }
