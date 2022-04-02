@@ -19,12 +19,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     private ArrayList<MessageResponse> messages;
 
-
+    // Конструктор
     public ChatAdapter(ArrayList<MessageResponse> chats) {
         this.messages = chats;
 
     }
-
+    // Определение, при создании элемента, к какому типу он относиться
     @NonNull
     @Override
     public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,7 +38,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
         return new ViewHolder(view);
     }
-
+    // Заполение элементов компоновки, которые нам необходимы
     @Override
     public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
         MessageResponse message = messages.get(position);
@@ -48,18 +48,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         holder.setTime(message.getCreationDateTime());
 
     }
-
+    // Получение типа элемента адаптера
     @Override
     public int getItemViewType(int position) {
         return messages.get(position).getViewType();
     }
-
+    // Получение количество элементов в адаптере
     @Override
     public int getItemCount() {
         return messages.size();
     }
 
-
+    // Класс, где мы инициализируем объекты компоновки
     public class ViewHolder extends RecyclerView.ViewHolder {
         final private TextView text;
         final private TextView name;

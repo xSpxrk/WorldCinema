@@ -49,6 +49,7 @@
             android:id="@+id/icon_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:src="@drawable/favorite"
             android:background="@drawable/ellipse_2" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/choose_icon"

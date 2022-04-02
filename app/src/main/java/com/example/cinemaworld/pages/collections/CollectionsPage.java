@@ -79,10 +79,8 @@ public class CollectionsPage extends Fragment {
         view.findViewById(R.id.im_plus).setOnClickListener(view1 -> {
             startActivity(new Intent(getActivity(), BuildingCollection.class));
         });
-        collections.add(new Collection(R.drawable.invalid, "Избранное"));
-        collections.add(new Collection(R.drawable.invalid, "Избранное"));
-        collections.add(new Collection(R.drawable.invalid, "Избранное"));
-        collections.add(new Collection(R.drawable.invalid, "Избранное"));
+        collections.add(new Collection(R.drawable.favorite, "Избранное"));
+        collections.add(new Collection(R.drawable.music, "Мюзиклы"));
 
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView = view.findViewById(R.id.rv_collections);

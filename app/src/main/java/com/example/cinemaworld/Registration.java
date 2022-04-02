@@ -32,7 +32,7 @@ public class Registration extends AppCompatActivity {
         initializeViews();
 
     }
-
+    // Инизиацлизация объектов экрана
     private void initializeViews() {
         editTextEmail = findViewById(R.id.edittext_email);
         editTextPassword = findViewById(R.id.edittext_password);
@@ -41,32 +41,34 @@ public class Registration extends AppCompatActivity {
         editTextRepeatedPassword = findViewById(R.id.edittext_repeated_password);
 
         findViewById(R.id.btn_SignUp).setOnClickListener(view -> {
-            SignUp();
+            // проверка на правильность пароля
+            if (editTextPassword.getText().toString() == editTextRepeatedPassword.getText().toString()) {
+                SignUp();
+            } else {
+                Toast.makeText(getApplicationContext(), "Пароли не совпадают", Toast.LENGTH_LONG).show();
+            }
+
         });
     }
-
+    // Переход на предыдущее окно
     public void goBack(View view){
         finish();
     }
 
+    // Регистрация пользователя
     private void SignUp() {
         AsyncTask.execute(() -> {
             service.getData(getRegistrationBody()).enqueue(new Callback<RegistrationResponse>() {
                 @Override
                 public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
                     if (response.isSuccessful()) {
-                        if (editTextPassword.getText().toString() == editTextRepeatedPassword.getText().toString()) {
-                            Toast.makeText(getApplicationContext(), "Регистрация успешна!", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), MainWindow.class));
-                            finish();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Пароли не совпадают", Toast.LENGTH_LONG).show();
-                        }
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Не крут", Toast.LENGTH_LONG).show();
-                    }
-
+                        Toast.makeText(getApplicationContext(), "Регистрация успешна!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(), MainWindow.class));
+                        finish();
+                    } else if (response.code() == 400) {
+                        Toast.makeText(getApplicationContext(), "Неправильный запрос", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getApplicationContext(), "Неизвестная ошибка", Toast.LENGTH_LONG).show();
                 }
                 @Override
                 public void onFailure(Call<RegistrationResponse> call, Throwable t) {
@@ -75,7 +77,7 @@ public class Registration extends AppCompatActivity {
             });
         });
     }
-
+    // Преобразование текстовых полей в класс RegistrationBody.java
     private RegistrationBody getRegistrationBody() {
         return new RegistrationBody(editTextEmail.getText().toString(),
                         editTextPassword.getText().toString(),

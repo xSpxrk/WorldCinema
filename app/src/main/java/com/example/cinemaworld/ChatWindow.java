@@ -47,7 +47,6 @@ public class ChatWindow extends AppCompatActivity {
     private String profileName;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +73,7 @@ public class ChatWindow extends AppCompatActivity {
                 getMessages();
             }
         });
-
+        // Обновление чата каждую секунду
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -83,33 +82,40 @@ public class ChatWindow extends AppCompatActivity {
         }, 0, 1000);
 
 
-
     }
 
     private void goBack() {
         finish();
     }
 
+    // Получение id чата
     private void getChatId() {
         AsyncTask.execute(() -> {
             service.getChatId(movieId).enqueue(new Callback<List<ChatResponse>>() {
                 @Override
                 public void onResponse(Call<List<ChatResponse>> call, Response<List<ChatResponse>> response) {
-                    chatId = response.body().get(0).getChatId();
-                    Log.d(TAG, "chatId: " + chatId);
-                    getMessages();
+                    if (response.isSuccessful()) {
+                        try {
+                            // получение id чата
+                            chatId = response.body().get(0).getChatId();
+                            // получение сообщений чата
+                            getMessages();
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Чата не существует", Toast.LENGTH_LONG).show();
+                        }
+                    } else if (response.code() == 400)
+                        Toast.makeText(getApplicationContext(), "Ошибка запроса", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Необычная ошибка", Toast.LENGTH_LONG).show();
                 }
                 @Override
                 public void onFailure(Call<List<ChatResponse>> call, Throwable t) {
-
                 }
             });
         });
     }
 
-
-
-
+    // Получение сообщений чата
     private void getMessages() {
         AsyncTask.execute(() -> {
             service.getMessages(token, chatId).enqueue(new Callback<List<MessageResponse>>() {
@@ -117,18 +123,25 @@ public class ChatWindow extends AppCompatActivity {
                 public void onResponse(Call<List<MessageResponse>> call, Response<List<MessageResponse>> response) {
                     if (response.isSuccessful()) {
                         messages = new ArrayList<>(response.body());
+                        // Определение сообщений, какие относятся к другим пользователям, а какие собственные сообщения
                         for (int i = 0; i < response.body().size(); i++) {
                             String name = messages.get(i).getFirstName() + " " + messages.get(i).getLastName();
                             if (name.equals(profileName))
                                 messages.get(i).setViewType(1);
                         }
+                        // Инициализация адаптера для чата
                         adapter = new ChatAdapter(messages);
+                        // Установка адаптера в объект recyclerView
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(linearLayoutManager);
+                        // Переход к последним сообщениям
                         recyclerView.scrollToPosition(messages.size() - 1);
                         adapter.notifyDataSetChanged();
+                    } else if (response.code() == 400) {
+                        Toast.makeText(getApplicationContext(), "Ошибка запроса", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Странная ошибка", Toast.LENGTH_LONG).show();
                     }
-
                 }
                 @Override
                 public void onFailure(Call<List<MessageResponse>> call, Throwable t) {
@@ -138,18 +151,20 @@ public class ChatWindow extends AppCompatActivity {
         });
     }
 
-
+    // Отправка сообщения
     private void sendMessage(String token, String chatId, MessageBody text) {
         AsyncTask.execute(() -> {
             service.sendMessage(token, chatId, text).enqueue(new Callback<ChatResponse>() {
                 @Override
                 public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
-
+                    if (response.isSuccessful()) {}
+                    else if (response.code() == 400) {
+                        Toast.makeText(getApplicationContext(), "Ошибка запроса", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getApplicationContext(), "Странная ошибка", Toast.LENGTH_LONG).show();
                 }
-
                 @Override
                 public void onFailure(Call<ChatResponse> call, Throwable t) {
-
                 }
             });
         });

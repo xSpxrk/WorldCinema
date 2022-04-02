@@ -14,10 +14,13 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ChatService {
+    // Получение сообщений
     @GET("/chats/{chatId}/messages")
     Call<List<MessageResponse>> getMessages(@Header("Authorization") String token, @Path("chatId") String chatId);
+    // Получние чата по id фильма
     @GET("/chats/{movieId}")
     Call<List<ChatResponse>> getChatId(@Path("movieId") String chatId);
+    // Отправка сообщения
     @POST("/chats/{chatId}/messages")
     Call<ChatResponse> sendMessage(@Header("Authorization") String token, @Path("chatId") String chatId, @Body MessageBody message);
 }

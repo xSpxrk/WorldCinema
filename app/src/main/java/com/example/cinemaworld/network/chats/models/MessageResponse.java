@@ -1,7 +1,7 @@
 package com.example.cinemaworld.network.chats.models;
 
 import com.google.gson.annotations.SerializedName;
-
+// Класс получаемого сообщения
 public class MessageResponse {
     @SerializedName("chatId")
     private String chatId;

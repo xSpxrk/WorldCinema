@@ -1,7 +1,7 @@
 package com.example.cinemaworld.network.chats.models;
 
 import com.google.gson.annotations.SerializedName;
-
+// Класс для сериализации кода и имени чата
 public class ChatResponse {
     @SerializedName("chatId")
     String chatId;

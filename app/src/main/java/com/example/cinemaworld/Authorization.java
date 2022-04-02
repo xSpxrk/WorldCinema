@@ -40,16 +40,21 @@ public class Authorization extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
+        // Создание переменных для хранения токена
         editor = getSharedPreferences("token", MODE_PRIVATE).edit();
         preferences = getSharedPreferences("token", MODE_PRIVATE);
+        // Получение токена
         token = preferences.getString("token", "");
         editEmail = findViewById(R.id.editEmail);
         editPassword = findViewById(R.id.editPassword);
         findViewById(R.id.btnLogin).setOnClickListener(view -> {
             SignIn();
         });
-        if (!token.equals(""))
+        // Если токен не пустой, запускаем главное окно
+        if (!token.equals("")) {
             startHomePage();
+            finish();
+        }
 
     }
 
@@ -57,20 +62,25 @@ public class Authorization extends AppCompatActivity {
         startActivity(new Intent(this, Registration.class));
     }
 
+    // Получение токена, если токен пришел, значит авторизация прошла успешно
     public void SignIn() {
+        // Создание ассинхронного потока
         AsyncTask.execute(() -> {
             service.getData(getLoginData()).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
+                        // Сохранение токена в sharedPreferences в переменную 'token'
                         editor.putString("token", response.body().getToken()).apply();
+                        // Получение и сохранение имени профиля
                         getProfile(response.body().getToken());
+                        //Запуск
                         startHomePage();
                         finish();
-                    } else if (response.code() == 400) {
-                        Toast.makeText(getApplicationContext(), "Не крут", Toast.LENGTH_LONG).show();
+                    } else if (response.code() == 401) {
+                        Toast.makeText(getApplicationContext(), "Такого профиля не существует" + response.code(), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Не крут", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Неизвестная ошибка", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -80,8 +90,25 @@ public class Authorization extends AppCompatActivity {
                 }
             });
         });
+    }
 
+    // Получение профиля
+    private void getProfile(String _token) {
+        AsyncTask.execute(() -> {
+            getProfileService.getData(_token).enqueue(new Callback<List<ProfileResponse>>() {
+                @Override
+                public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
+                    // Получение имени профиля и сохранения
+                    String profileName = response.body().get(0).getProfileName();
+                    editor.putString("ProfileName", profileName).apply();
+                }
 
+                @Override
+                public void onFailure(Call<List<ProfileResponse>> call, Throwable t) {
+
+                }
+            });
+        });
     }
 
 
@@ -94,20 +121,4 @@ public class Authorization extends AppCompatActivity {
         finish();
     }
 
-    private void getProfile(String _token) {
-        AsyncTask.execute(() -> {
-            getProfileService.getData(_token).enqueue(new Callback<List<ProfileResponse>>() {
-                @Override
-                public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
-                    String profileName = response.body().get(0).getProfileName();
-                    editor.putString("ProfileName", profileName).apply();
-                }
-
-                @Override
-                public void onFailure(Call<List<ProfileResponse>> call, Throwable t) {
-
-                }
-            });
-        });
-    }
 }

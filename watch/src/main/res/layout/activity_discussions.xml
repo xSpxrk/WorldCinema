@@ -4,8 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DiscussionsActivity"
-    android:background="@color/dark">
-
+    android:background="@color/dark"
+    android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Обсуждения"
+        android:textColor="@color/orange"
+        android:layout_marginBottom="13dp"
+        android:gravity="center"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chats"
         android:layout_width="match_parent"
