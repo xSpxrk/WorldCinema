@@ -25,6 +25,8 @@ import com.example.cinemaworld.network.chats.service.ChatService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +67,6 @@ public class ChatWindow extends AppCompatActivity {
         });
         getChatId();
         EditText editText = findViewById(R.id.textMessage);
-
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +74,15 @@ public class ChatWindow extends AppCompatActivity {
                 getMessages();
             }
         });
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                getMessages();
+            }
+        }, 0, 1000);
+
+
 
     }
 
@@ -111,7 +121,6 @@ public class ChatWindow extends AppCompatActivity {
                             String name = messages.get(i).getFirstName() + " " + messages.get(i).getLastName();
                             if (name.equals(profileName))
                                 messages.get(i).setViewType(1);
-
                         }
                         adapter = new ChatAdapter(messages);
                         recyclerView.setAdapter(adapter);
@@ -135,9 +144,6 @@ public class ChatWindow extends AppCompatActivity {
             service.sendMessage(token, chatId, text).enqueue(new Callback<ChatResponse>() {
                 @Override
                 public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(ChatWindow.this, "Сообщение успешно отправлено", Toast.LENGTH_LONG).show();
-                    }
 
                 }
 
